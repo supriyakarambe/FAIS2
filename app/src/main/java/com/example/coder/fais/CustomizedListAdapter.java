@@ -7,37 +7,45 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.ArrayAdapter;
 import com.example.coder.fais.models.Categories;
 
 import java.util.ArrayList;
 
 /**
- * Created by Supriya on 11/19/17.
+ * Created by Agni on 4/16/2017.
  */
 
-class CustomizedListAdapter extends ArrayAdapter<Categories>{
+public class CustomizedListAdapter extends BaseAdapter {
+    private ArrayList<Categories> data;
+    private static LayoutInflater inflater = null;
+    //public ImageLoader imageLoader;
 
-    private final Activity context;
-    private final ArrayList <Categories>categories;
-
-
-    public CustomizedListAdapter(Activity context,
-
-                      ArrayList<Categories> categories) {
-        super(context, R.layout.list_row, categories);
-        this.context = context;
-        this.categories = categories;
-
+    public CustomizedListAdapter(Activity a, ArrayList<Categories> d) {
+        data = d;
+        inflater = (LayoutInflater) a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //imageLoader=new ImageLoader(activity.getApplicationContext());
     }
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater inflater = context.getLayoutInflater();
-        View rowView= inflater.inflate(R.layout.list_row, null, true);
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
 
-        txtTitle.setText(categories.get(position).getCategoryName());
+    public int getCount() {
+        return data.size();
+    }
 
-        return rowView;
+    public Object getItem(int position) {
+        return position;
+    }
+
+    public long getItemId(int position) {
+        return position;
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
+        if (convertView == null)
+            view = inflater.inflate(R.layout.list_row, null);
+
+        TextView categoryName = (TextView) view.findViewById(R.id.txt); // title
+        Categories category = data.get(position);
+        categoryName.setText(category.getCategoryName());
+        return view;
     }
 }

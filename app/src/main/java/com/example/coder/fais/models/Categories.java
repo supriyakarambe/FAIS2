@@ -7,6 +7,14 @@ package com.example.coder.fais.models;
 public class Categories {
     int categoryid;
     String categoryName;
+    public Categories() {
+    }
+
+    public Categories(int CategoryId,String Name)
+    {
+        categoryid=CategoryId;
+        categoryName=Name;
+    }
 
     public int getCategoryid() {
         return categoryid;
